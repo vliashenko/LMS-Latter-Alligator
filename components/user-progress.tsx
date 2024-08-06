@@ -23,7 +23,7 @@ export default function UserProgress({
           <Image
             src={activeCourse.imageSrc}
             alt={activeCourse.title}
-            className="rounded-md border"
+            className=" border"
             width={32}
             height={32}
           />

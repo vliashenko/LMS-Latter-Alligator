@@ -8,14 +8,14 @@ export default function Learn() {
     <div className="flex flex-row-reverse gap-[48px] px-6">
       <StickyWrapper>
         <UserProgress
-          activeCourse={{ title: 'English', imageSrc: '/britain.svg' }}
+          activeCourse={{ title: 'Beginner', imageSrc: '/chicken.png' }}
           hearts={5}
           points={100}
           hasActiveSubscription={false}
         />
       </StickyWrapper>
       <FeedWrapper>
-        <Header title="English" />
+        <Header title="Elementary" />
       </FeedWrapper>
     </div>
   );
