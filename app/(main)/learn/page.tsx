@@ -23,7 +23,7 @@ export default async function Learn() {
         />
       </StickyWrapper>
       <FeedWrapper>
-        <Header title="Elementary" />
+        <Header title={userProgress.activeCourse.title} />
       </FeedWrapper>
     </div>
   );
