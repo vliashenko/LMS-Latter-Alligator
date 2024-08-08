@@ -8,11 +8,10 @@ type Props = {
   initialLessonId: number;
   initialHearts: number;
   initialPercentage: number;
-  initialLessonChallenges: (typeof challenges.$inferSelect &
-    {
-      completed: boolean;
-      challengeOptions: (typeof challengeOptions.$inferSelect)[];
-    })[];
+  initialLessonChallenges: (typeof challenges.$inferSelect & {
+    completed: boolean;
+    challengeOptions: (typeof challengeOptions.$inferSelect)[];
+  })[];
   userSubscription: any;
 };
 
@@ -23,16 +22,16 @@ export default function Quiz({
   initialLessonChallenges,
   userSubscription,
 }: Props) {
-    const [hearts, setHearts] = useState(initialHearts);
-    const [percentage, setPercentage] = useState(initialHearts);
+  const [hearts, setHearts] = useState(initialHearts);
+  const [percentage, setPercentage] = useState(initialPercentage);
 
   return (
     <>
-        <Header 
-        hearts ={hearts}
+      <Header
+        hearts={hearts}
         percentage={percentage}
         hasActiveSubscription={!!userSubscription?.isActive}
-        />
+      />
     </>
   );
 }
