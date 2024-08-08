@@ -63,7 +63,9 @@ export const getUnits = cache(async () => {
     const normalizedData = data.map((unit) => {
         const lessonsWithCompletedStatus = unit.lessons.map((lesson) => {
             const allCompletedChallenges = lesson.challenges.every((challenge) => {
-                return challenge.challengeProgress && challenge.challengeProgress.length > 0 && challenge.challengeProgress.every((progress) => progress.completed)
+                return challenge.challengeProgress
+                    && challenge.challengeProgress.length > 0
+                    && challenge.challengeProgress.every((progress) => progress.completed)
             });
 
             return { ...lesson, completed: allCompletedChallenges };
@@ -105,7 +107,9 @@ export const getCourseProgress = cache(async () => {
 
     const firstUncompletedLesson = unitsInActiveCourse.flatMap((unit) => unit.lessons).find((lesson) => {
         return lesson.challenges.some((challenge) => {
-            return !challenge.challengeProgress || challenge.challengeProgress.length === 0
+            return !challenge.challengeProgress
+                || challenge.challengeProgress.length === 0
+                || challenge.challengeProgress.some((progress) => progress.completed === false);
         })
     })
 
@@ -113,4 +117,48 @@ export const getCourseProgress = cache(async () => {
         activeLesson: firstUncompletedLesson,
         activeLessonId: firstUncompletedLesson?.id
     }
+})
+
+export const getLesson = cache(async (id?: number) => {
+    const { userId } = await auth();
+
+    if (!userId) {
+        return null
+    }
+
+    const courseProgress = await getCourseProgress();
+    const lessonId = id || courseProgress?.activeLessonId;
+
+    if (!lessonId) {
+        return null
+    }
+
+    const data = await db.query.lessons.findFirst({
+        where: eq(lessons.id, lessonId),
+        with: {
+            challenges: {
+                orderBy: (challenges, { asc }) => [asc(challenges.order)],
+                with: {
+                    challengeOptions: true,
+                    challengeProgress: {
+                        where: eq(challengeProgress.userid, userId),
+                    }
+                }
+            }
+        }
+    })
+
+    if (!data || !data.challenges) {
+        return null
+    }
+
+    const normalizedChallenges = data.challenges.map((challenge) => {
+        const completed = challenge.challengeProgress
+            && challenge.challengeProgress.length > 0
+            && challenge.challengeProgress.every((progress) => progress.completed)
+
+        return { ...challenge, completed };
+    })
+
+    return { ...data, challenges: normalizedChallenges };
 })
