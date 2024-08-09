@@ -2,7 +2,7 @@ import { cache } from "react";
 import db from "@/db/drizzle";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
-import { challengeProgress, courses, units, userProgress } from "@/db//schema";
+import { challengeProgress, courses, lessons, units, userProgress } from "@/db//schema";
 
 export const getCourses = cache(async () => {
     const data = await db.query.courses.findMany();
@@ -74,3 +74,43 @@ export const getUnits = cache(async () => {
 
     return normalizedData;
 });
+
+export const getCourseProgress = cache(async () => {
+    const { userId } = await auth();
+    const userProgress = await getUserProgress();
+
+    if (!userId || !userProgress?.activeCourseId) {
+        return null;
+    }
+
+    const unitsInActiveCourse = await db.query.units.findMany({
+        orderBy: (units, { asc }) => [asc(lessons.order)],
+        where: eq(units.courseId, userProgress.activeCourseId),
+        with: {
+            lessons: {
+                orderBy: (lessons, { asc }) => [asc(lessons.order)],
+                with: {
+                    unit: true,
+                    challenges: {
+                        with: {
+                            challengeProgress: {
+                                where: eq(challengeProgress.userid, userId),
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    const firstUncompletedLesson = unitsInActiveCourse.flatMap((unit) => unit.lessons).find((lesson) => {
+        return lesson.challenges.some((challenge) => {
+            return !challenge.challengeProgress || challenge.challengeProgress.length === 0
+        })
+    })
+
+    return {
+        activeLesson: firstUncompletedLesson,
+        activeLessonId: firstUncompletedLesson?.id
+    }
+})
