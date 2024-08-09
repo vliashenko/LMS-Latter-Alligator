@@ -9,6 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        locked:
+          "bg-neutral-200 text-primary-foreground hover:bg:neutral-200/90 border-neutral-400 border-b-4 active:border-b-0",
         default:
           "bg-white text-black border-slate-200 border-2 border-b-[4px] active:border-b-2 hover:bg-slate-100 text-slate-500",
         primary:
@@ -20,11 +22,15 @@ const buttonVariants = cva(
         danger:
           "bg-rose-400 text-primary-foreground hover:bg-rose-400/90 border-rose-500 border-b-[4px] active:border-b-0",
         dangerOutline: "bg-white text-rose-500 hover:bg-slate-100",
-        super: "bg-indigo-400 text-primary-foreground hover:bg-indigo-400/90 border-indigo-500 border-b-[4px] active:border-b-0",
+        super:
+          "bg-indigo-400 text-primary-foreground hover:bg-indigo-400/90 border-indigo-500 border-b-[4px] active:border-b-0",
         superOutline: "bg-white text-indigo-500 hover:bg-slate-100",
-        ghost: "bg-transparent text-slate-500 border-transparent border-0 hover:bg-slate-100",
-        sidebar: "bg-transparent text-slate-500 border-2 border-transparent hoverbg-slate-100 transition-none",
-        sidebarOutline: "bg-sky-500/20 text-sky-500 borer-sky-300 border-2 hover:bg-sky-500/20 transition-none",
+        ghost:
+          "bg-transparent text-slate-500 border-transparent border-0 hover:bg-slate-100",
+        sidebar:
+          "bg-transparent text-slate-500 border-2 border-transparent hoverbg-slate-100 transition-none",
+        sidebarOutline:
+          "bg-sky-500/20 text-sky-500 borer-sky-300 border-2 hover:bg-sky-500/20 transition-none",
       },
       size: {
         default: "h-11 px-4 py-2 has-[>svg]:px-3",
