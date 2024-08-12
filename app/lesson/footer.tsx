@@ -3,12 +3,13 @@ import { CheckCircle, XCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useMemo } from "react";
 
 type Props = {
   onCheck: () => void;
   status: "correct" | "wrong" | "none" | "completed";
   disabled?: boolean;
-  lessonId?: boolean;
+  lessonId?: number;
 };
 
 const completedPhrases = [
@@ -32,8 +33,8 @@ export const getRandomPhrase = (phrases: string[]): string => {
 
 export default function Footer({ onCheck, status, disabled, lessonId }: Props) {
   useKey("Enter", onCheck, {}, [onCheck]);
-  const completedRandomPhrase = getRandomPhrase(completedPhrases);
-  const wrongRandomPhrase = getRandomPhrase(wrongPhrases);
+  const completedRandomPhrase = useMemo(() => getRandomPhrase(completedPhrases), []);
+  const wrongRandomPhrase = useMemo(() => getRandomPhrase(wrongPhrases), []);
   const isMobile = useMedia("(max-width: 1024px");
 
   return (

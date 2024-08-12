@@ -69,18 +69,12 @@ const main = async () => {
                 id: 2,
                 unitId: 1,
                 order: 2,
-                title: 'Learning the Numbers',
+                title: 'What’s your name?',
             },
             {
                 id: 3,
                 unitId: 1,
                 order: 3,
-                title: 'What’s your name?',
-            },
-            {
-                id: 4,
-                unitId: 1,
-                order: 4,
                 title: 'How are you?',
             },
         ])
@@ -195,6 +189,30 @@ const main = async () => {
                 correctOption: true,
                 text: 'Bear',
                 audioSrc: '/bear.mp3',
+            },
+        ])
+
+        await db.insert(schema.challenges).values([
+            {
+                id: 4,
+                lessonId: 2,
+                type: 'SELECT',
+                order: 1,
+                question: 'Як англійською сказати "собака"?'
+            },
+            {
+                id: 5,
+                lessonId: 2,
+                type: 'ASSIST',
+                order: 2,
+                question: 'Як англійською сказати "Привіт, як тебе звати"?'
+            },
+            {
+                id: 6,
+                lessonId: 2,
+                type: 'SELECT',
+                order: 3,
+                question: 'Хто з тварин є ведмедем?'
             },
         ])
 

@@ -10,6 +10,9 @@ import { upsertChallengeProgress } from "@/actions/challenge-progress";
 import { toast } from "sonner";
 import { reduceHearts } from "@/actions/user-progress";
 import { useAudio } from "react-use";
+import Image from "next/image";
+import ResultCard from "./result-crad";
+import { useRouter } from "next/navigation";
 
 type Props = {
   initialLessonId: number;
@@ -29,10 +32,17 @@ export default function Quiz({
   initialLessonChallenges,
   userSubscription,
 }: Props) {
-  const [correctAudio, _c, correctAudioControls] = useAudio({ src: "/correct1.wav" });
-  const [incorrectAudio, _i, incorrectAudioControls] = useAudio({ src: "/incorrect.wav" });
+  const router = useRouter();
+
+  const [correctAudio, _c, correctAudioControls] = useAudio({
+    src: "/correct1.wav",
+  });
+  const [incorrectAudio, _i, incorrectAudioControls] = useAudio({
+    src: "/incorrect.wav",
+  });
   const [pending, startTransition] = useTransition();
 
+  const [lessonId, setLessonId] = useState(initialLessonId);
   const [hearts, setHearts] = useState(initialHearts);
   const [percentage, setPercentage] = useState(initialPercentage);
   const [challenges] = useState(initialLessonChallenges);
@@ -116,6 +126,37 @@ export default function Quiz({
     }
   };
 
+  if (true || !challenge) {
+    return (
+      <>
+        <div className="flex w-full flex-col gap-y-4 lg:gap-y-8 max-w-lg mx-auto text-center items-center justify-center h-full">
+          <Image
+            src="/moose.png"
+            alt="finish"
+            className="hidden lg:block"
+            height={150}
+            width={150}
+          />
+          <Image
+            src="/moose.png"
+            alt="finish"
+            className="block lg:hidden"
+            height={100}
+            width={100}
+          />
+          <h1 className="text-xl lg:text-3xl font-bold text-neutral-700">
+            Чудова робота!
+          </h1>
+          <div className="flex items-center gap-x-4 w-full">
+            <ResultCard variant="points" value={challenges.length * 10} />
+            <ResultCard variant="hearts" value={hearts} />
+          </div>
+        </div>
+        <Footer lessonId={lessonId} status='completed' onCheck={() => {}} />
+      </>
+    );
+  }
+
   const title =
     challenge.type === "ASSIST"
       ? "Обери правильний варіант"
@@ -123,8 +164,8 @@ export default function Quiz({
 
   return (
     <>
-    {incorrectAudio}
-    {correctAudio}
+      {incorrectAudio}
+      {correctAudio}
       <Header
         hearts={hearts}
         percentage={percentage}
