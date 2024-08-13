@@ -14,12 +14,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useExitModal } from "@/store/use-exit-modal";
+import { usePracticeModal } from "@/store/use-practice-modal";
 
-export default function HeartsModal() {
+export default function PracticeModal() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  const { isOpen, close } = useExitModal();
+  const { isOpen, close } = usePracticeModal();
 
   useEffect(() => setIsClient(true), []);
 
@@ -31,13 +31,14 @@ export default function HeartsModal() {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="flex items-center w-full justify-center mb-5">
-            <Image src="/moose.png" alt="Sad Face" height={80} width={80} />
+            <Image src="/heart.svg" alt="Hearts" height={100} width={100} />
           </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            Зачекай, не йди!
+            Повторне заняття
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Ти вже хочеш завершити заняття? Ти справді впевнений?
+            Пройди повторне заняття і отримай додаткові спроби та бали. Спроби
+            та бали не втрачаються під час повторного заняття.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
@@ -46,20 +47,11 @@ export default function HeartsModal() {
               variant="primary"
               className="w-full"
               size="lg"
-              onClick={close}
-            >
-              Продовжити навчання
-            </Button>
-            <Button
-              variant="dangerOutline"
-              className="w-full"
-              size="lg"
               onClick={() => {
                 close();
-                router.push('/learn')
               }}
             >
-              Завершити сессію
+              Зрозуміло
             </Button>
           </div>
         </DialogFooter>

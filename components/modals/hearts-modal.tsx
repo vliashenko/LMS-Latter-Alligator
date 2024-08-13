@@ -14,14 +14,19 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useExitModal } from "@/store/use-exit-modal";
+import { useHeartsModal } from "@/store/use-hearts-modal";
 
-export default function HeartsModal() {
+export default function ExitModal() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
-  const { isOpen, close } = useExitModal();
+  const { isOpen, close } = useHeartsModal();
 
   useEffect(() => setIsClient(true), []);
+
+  const onClick = () => {
+    close();
+    router.push('/shop')
+  }
 
   if (!isClient) {
     return null;
@@ -31,13 +36,13 @@ export default function HeartsModal() {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="flex items-center w-full justify-center mb-5">
-            <Image src="/moose.png" alt="Sad Face" height={80} width={80} />
+            <Image src="/sloth.png" alt="Sad Face" height={80} width={80} />
           </div>
           <DialogTitle className="text-center font-bold text-2xl">
-            Зачекай, не йди!
+            У тебе закінчились спроби!
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Ти вже хочеш завершити заняття? Ти справді впевнений?
+            Отримай Pro версію для безлімітних спроб, або придбай їх у нашому магазині.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">
@@ -46,20 +51,19 @@ export default function HeartsModal() {
               variant="primary"
               className="w-full"
               size="lg"
-              onClick={close}
+              onClick={onClick}
             >
-              Продовжити навчання
+              Отримати безлімітні спроби
             </Button>
             <Button
-              variant="dangerOutline"
+              variant="primaryOutline"
               className="w-full"
               size="lg"
               onClick={() => {
                 close();
-                router.push('/learn')
               }}
             >
-              Завершити сессію
+              Ні, дякую
             </Button>
           </div>
         </DialogFooter>
