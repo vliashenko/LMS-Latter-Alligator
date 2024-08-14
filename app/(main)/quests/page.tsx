@@ -1,10 +1,33 @@
 import FeedWrapper from "@/components/feed-wrapper";
 import StickyWrapper from "@/components/sticky-wrapper";
+import { Progress } from "@/components/ui/progress";
 import UserProgress from "@/components/user-progress";
 import { getUserProgress } from "@/db/queries";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
+const quests = [
+  {
+    title: "Зароби 20 XP",
+    value: 20,
+  },
+  {
+    title: "Зароби 50 XP",
+    value: 50,
+  },
+  {
+    title: "Зароби 100 XP",
+    value: 100,
+  },
+  {
+    title: "Зароби 500 XP",
+    value: 500,
+  },
+  {
+    title: "Зароби 1000 XP",
+    value: 1000,
+  },
+];
 
 export default async function QuestsPage() {
   const userProgress = await getUserProgress();
@@ -30,8 +53,32 @@ export default async function QuestsPage() {
           <p className="text-muted-foreground text-center text-lg mb-6">
             Виконуйте квести, заробляючи бали
           </p>
-          {/* TODO: ADD QUESTS */}
-          </div>
+          <ul className="w-full">
+            {quests.map((quest) => {
+              const progress = (userProgress.points / quest.value) * 100;
+
+              return (
+                <div
+                  className="flex items-center w-full p-4 gap-x-4 border-t-2"
+                  key={quest.title}
+                >
+                  <Image 
+                  src='/points.svg'
+                  alt="Points"
+                  width={60}
+                  height={60}
+                  />
+                  <div className="flex flex-col gap-y-2 w-full">
+                    <p className="text-neutral-700 text-xl font-bold">
+                      {quest.title}
+                    </p>
+                    <Progress value={progress} className="h-3"/>
+                  </div>
+                </div>
+              );
+            })}
+          </ul>
+        </div>
       </FeedWrapper>
     </div>
   );
