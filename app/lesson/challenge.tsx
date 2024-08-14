@@ -30,7 +30,6 @@ export default function Challenge({
       {options.map((option, idx) => (
         <Card
           key={option.id}
-          id={option.id}
           text={option.text}
           imageSrc={option.imageSrc}
           shortcut={`${idx + 1}`}

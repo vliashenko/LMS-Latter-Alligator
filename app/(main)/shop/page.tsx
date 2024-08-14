@@ -28,7 +28,7 @@ export default async function ShopPage() {
             Магазин
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
-            Використай бали щоб поновити спроби.
+            Використайте бали щоб поновити спроби.
           </p>
           <Items
             hearts={userProgress.hearts}

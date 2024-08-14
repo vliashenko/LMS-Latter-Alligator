@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { challenges } from "@/db/schema";
 
 type Props = {
-  id: number;
   text: string;
   imageSrc: string | null;
   audioSrc: string | null;
@@ -18,7 +17,6 @@ type Props = {
 };
 
 export default function Card({
-  id,
   text,
   imageSrc,
   audioSrc,
@@ -29,6 +27,7 @@ export default function Card({
   disabled,
   type,
 }: Props) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [audio, _, controls] = useAudio({ src: audioSrc || '' })
 
   const handleClick = useCallback(() => {

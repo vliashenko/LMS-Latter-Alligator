@@ -31,7 +31,7 @@ export default async function LeaderboardPage() {
             Список лідерів
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
-            Знайди себе у списку лідерів серед інших учнів.
+            Знайдіть себе у списку лідерів серед інших учнів.
           </p>
           <Separator className="mb-4 h-0.5 rounded-full"/>
           {leaderboard.map((userProgress, idx) => (
