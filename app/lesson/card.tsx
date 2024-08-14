@@ -12,7 +12,7 @@ type Props = {
   shortcut: string;
   selected?: boolean;
   onClick: () => void;
-  status?: "correct" | "wrong" | "none";
+  status?: "correct" | "wrong" | "completed" | "none";
   disabled?: boolean;
   type: (typeof challenges.$inferSelect)["type"];
 };

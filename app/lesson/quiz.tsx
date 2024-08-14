@@ -27,7 +27,6 @@ type Props = {
     completed: boolean;
     challengeOptions: (typeof challengeOptions.$inferSelect)[];
   })[];
-  userSubscription: any;
 };
 
 export default function Quiz({
@@ -35,7 +34,6 @@ export default function Quiz({
   initialHearts,
   initialPercentage,
   initialLessonChallenges,
-  userSubscription,
 }: Props) {
   const { open: openPracticeModal } = usePracticeModal();
   const { open: openHeartsModal } = useHeartsModal();
@@ -52,15 +50,17 @@ export default function Quiz({
 
   const [finishAudio] = useAudio({ src: "/finish.wav", autoPlay: true });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [correctAudio, _c, correctAudioControls] = useAudio({
     src: "/correct1.wav",
   });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [incorrectAudio, _i, incorrectAudioControls] = useAudio({
     src: "/incorrect.wav",
   });
   const [pending, startTransition] = useTransition();
 
-  const [lessonId, setLessonId] = useState(initialLessonId);
+  const [lessonId] = useState(initialLessonId);
   const [hearts, setHearts] = useState(initialHearts);
   const [percentage, setPercentage] = useState(() => {
     return initialPercentage === 100 ? 0 : initialPercentage;
@@ -201,7 +201,6 @@ export default function Quiz({
       <Header
         hearts={hearts}
         percentage={percentage}
-        hasActiveSubscription={!!userSubscription?.isActive}
       />
       <div className="flex-1">
         <div className="h-full flex items-center justify-center">
