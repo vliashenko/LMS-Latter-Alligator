@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Confetti from "react-confetti";
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useAudio, useWindowSize, useMount } from "react-use";
 
@@ -42,22 +42,27 @@ export default function Quiz({
     if (initialPercentage === 100) {
       openPracticeModal();
     }
-  })
+  });
 
   const { width, height } = useWindowSize();
 
   const router = useRouter();
 
-  const [finishAudio] = useAudio({ src: "/finish.wav", autoPlay: true });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [finishAudio, _, finishAudioControls, finishAudioRef] = useAudio({
+    src: "/finish.wav",
+    autoPlay: true,
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [correctAudio, _c, correctAudioControls] = useAudio({
+  const [correctAudio, _c, correctAudioControls, correctAudioRef] = useAudio({
     src: "/correct1.wav",
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [incorrectAudio, _i, incorrectAudioControls] = useAudio({
-    src: "/incorrect.wav",
-  });
+  const [incorrectAudio, _i, incorrectAudioControls, incorrectAudioRef] =
+    useAudio({
+      src: "/incorrect.wav",
+    });
   const [pending, startTransition] = useTransition();
 
   const [lessonId] = useState(initialLessonId);
@@ -77,6 +82,10 @@ export default function Quiz({
 
   const challenge = challenges[activeIndex];
   const options = challenge?.challengeOptions ?? [];
+  const isSound = useMemo(
+    () => correctAudio && finishAudio && incorrectAudio,
+    [correctAudio, finishAudio, incorrectAudio]
+  );
 
   const onSelect = (id: number) => {
     if (status !== "none") return;
@@ -90,7 +99,7 @@ export default function Quiz({
 
   const onContinue = () => {
     if (!selectedOption) return;
-  
+
     if (status === "wrong") {
       setStatus("none");
       setSelectedOption(undefined);
@@ -149,7 +158,7 @@ export default function Quiz({
   if (!challenge) {
     return (
       <>
-        {finishAudio}
+        {isSound ? <div>{finishAudio}</div> : <audio ref={finishAudioRef} />}
         <Confetti
           recycle={false}
           numberOfPieces={500}
@@ -196,12 +205,13 @@ export default function Quiz({
 
   return (
     <>
-      {incorrectAudio}
-      {correctAudio}
-      <Header
-        hearts={hearts}
-        percentage={percentage}
-      />
+      {isSound ? (
+        <div>{incorrectAudio}</div>
+      ) : (
+        <audio ref={incorrectAudioRef} />
+      )}
+      {isSound ? <div>{correctAudio}</div> : <audio ref={correctAudioRef} />}
+      <Header hearts={hearts} percentage={percentage} />
       <div className="flex-1">
         <div className="h-full flex items-center justify-center">
           <div className="lg:min-h-[350px] lg:w-[600px] w-full px-6 lg:px-0 flex flex-col gap-y-12">

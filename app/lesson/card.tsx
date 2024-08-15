@@ -31,11 +31,11 @@ export default function Card({
   const [audio, _, controls] = useAudio({ src: audioSrc || '' })
 
   const handleClick = useCallback(() => {
-    if(disabled) return;
+    if(disabled || !audio) return;
 
     controls.play();
     onClick();
-  },[disabled, onClick, controls]);
+  },[disabled, audio, controls, onClick]);
 
   useKey(shortcut, handleClick, {}, [handleClick]);
 

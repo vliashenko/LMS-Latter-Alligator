@@ -107,3 +107,11 @@ export const userProgressRelations = relations(userProgress, ({ one }) => ({
         references: [courses.id],
     }),
 }))
+
+export const feedback = pgTable('feedback', {
+    id: serial("id").primaryKey(),
+    userEmail: text('user_email').notNull(),
+    userName: text("user_name").notNull().default("User"),
+    message:  text('message').notNull(),
+    type: text('type').notNull().default('general'),
+})

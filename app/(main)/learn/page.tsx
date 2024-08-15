@@ -5,6 +5,7 @@ import UserProgress from "@/components/user-progress";
 import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
 import Unit from "./unit";
+import Promo from "./promo";
 
 export default async function Learn() {
   const userProgress = await getUserProgress();
@@ -24,6 +25,7 @@ export default async function Learn() {
           hearts={userProgress.hearts}
           points={userProgress.points}
         />
+        <Promo />
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.activeCourse.title} />
