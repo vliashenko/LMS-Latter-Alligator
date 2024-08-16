@@ -19,7 +19,8 @@ import { Textarea } from "../ui/text-area";
 import { ButtonGroup } from "../ui/button-group";
 
 export default function FeedbackModal() {
-  const [type, setType] = useState<"general" | "bug" | "idea">("general");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setType] = useState<"general" | "bug" | "idea">("general");
   const [message, setMessage] = useState("");
   const [isClient, setIsClient] = useState(false);
   const { isOpen, close } = useFeedbackModal();

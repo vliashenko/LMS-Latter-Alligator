@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { isAdmin } from "@/db/queries";
 import { challenges } from "@/db/schema";
 
-export const GET = async (req: Request, { params }: { params: { challengeId: number } }) => {
+export const GET = async (req: Request, { params }: { params: Promise<{ challengeId: number }> }) => {
     if (!isAdmin()) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
@@ -19,7 +19,7 @@ export const GET = async (req: Request, { params }: { params: { challengeId: num
     return NextResponse.json(data)
 }
 
-export const PUT = async (req: Request, { params }: { params: { challengeId: number } }) => {
+export const PUT = async (req: Request, { params }: { params: Promise<{ challengeId: number }> }) => {
     if (!isAdmin()) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
@@ -37,7 +37,7 @@ export const PUT = async (req: Request, { params }: { params: { challengeId: num
     return NextResponse.json(data[0])
 }
 
-export const DELETE = async (req: Request, { params }: { params: { challengeId: number } }) => {
+export const DELETE = async (req: Request, { params }: { params: Promise<{ challengeId: number }> }) => {
     if (!isAdmin()) {
         return new NextResponse('Unauthorized', { status: 401 });
     }

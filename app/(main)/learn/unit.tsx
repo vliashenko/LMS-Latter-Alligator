@@ -3,8 +3,6 @@ import UnitBanner from "./unit-banner";
 import LessonButton from "./lesson-button";
 
 type Props = {
-  id: number;
-  order: number;
   description: string;
   title: string;
   lessons: (typeof lessons.$inferSelect & { completed: boolean })[];
@@ -15,8 +13,6 @@ type Props = {
 };
 
 export default function Unit({
-  id,
-  order,
   description,
   title,
   lessons,
