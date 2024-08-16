@@ -1,4 +1,6 @@
 import { cache } from "react";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Roles } from '@/types/globals'
 import db from "@/db/drizzle";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
@@ -185,7 +187,7 @@ export const getLessonPercentage = cache(async () => {
     return percentage;
 })
 
-export const getTopTenUsers = cache (async () => {
+export const getTopTenUsers = cache(async () => {
     const { userId } = await auth();
 
     if (!userId) {
@@ -205,3 +207,8 @@ export const getTopTenUsers = cache (async () => {
 
     return data;
 })
+
+export const isAdmin = async () => {
+    const { sessionClaims } = await auth()
+    return sessionClaims?.metadata.role === 'admin'
+  }

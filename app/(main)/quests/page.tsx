@@ -3,31 +3,10 @@ import StickyWrapper from "@/components/sticky-wrapper";
 import { Progress } from "@/components/ui/progress";
 import UserProgress from "@/components/user-progress";
 import { getUserProgress } from "@/db/queries";
+import { quests } from "@/lib/constants";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-
-const quests = [
-  {
-    title: "Зароби 20 XP",
-    value: 20,
-  },
-  {
-    title: "Зароби 50 XP",
-    value: 50,
-  },
-  {
-    title: "Зароби 100 XP",
-    value: 100,
-  },
-  {
-    title: "Зароби 500 XP",
-    value: 500,
-  },
-  {
-    title: "Зароби 1000 XP",
-    value: 1000,
-  },
-];
+import Promo from "../learn/promo";
 
 export default async function QuestsPage() {
   const userProgress = await getUserProgress();
@@ -36,13 +15,14 @@ export default async function QuestsPage() {
     redirect("/courses");
   }
   return (
-    <div className="flex flex-col-reverse gap-[48px] px-6">
+    <div className="flex flex-row-reverse gap-[48px] px-6">
       <StickyWrapper>
         <UserProgress
           activeCourse={userProgress.activeCourse}
           hearts={userProgress.hearts}
           points={userProgress.points}
         />
+        <Promo />
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center lg:pt-[62px]">

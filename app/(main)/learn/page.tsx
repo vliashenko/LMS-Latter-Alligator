@@ -2,10 +2,16 @@ import FeedWrapper from "@/components/feed-wrapper";
 import StickyWrapper from "@/components/sticky-wrapper";
 import Header from "./header";
 import UserProgress from "@/components/user-progress";
-import { getCourseProgress, getLessonPercentage, getUnits, getUserProgress } from "@/db/queries";
+import {
+  getCourseProgress,
+  getLessonPercentage,
+  getUnits,
+  getUserProgress,
+} from "@/db/queries";
 import { redirect } from "next/navigation";
 import Unit from "./unit";
 import Promo from "./promo";
+import Quests from "./quests";
 
 export default async function Learn() {
   const userProgress = await getUserProgress();
@@ -26,6 +32,7 @@ export default async function Learn() {
           points={userProgress.points}
         />
         <Promo />
+        <Quests points={userProgress.points}/>
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.activeCourse.title} />

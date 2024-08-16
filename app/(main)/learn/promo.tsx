@@ -7,7 +7,7 @@ import { useFeedbackModal } from "@/store/use-feedback-modal";
 export default function Promo() {
   const { open } = useFeedbackModal();
   return (
-    <div className="border-2 roundedxl p-4 space-y-4 ">
+    <div className="border-2 rounded-xl p-4 space-y-4 ">
       <div className="space-y-2">
         <div className="flex items-center gap-x-2">
           <Image src="/zebra.png" alt="hearts" width={46} height={46} />
@@ -20,8 +20,13 @@ export default function Promo() {
           Залиште відгук або повідомте нам що щось не так.
         </p>
       </div>
-      <Button variant="super" className="w-full" size='lg' onClick={open}>
-        Залишити відгук 
+      <Button
+        variant="super"
+        className="w-full"
+        size="lg"
+        onClick={open}
+      >
+        Залишити відгук
       </Button>
     </div>
   );
