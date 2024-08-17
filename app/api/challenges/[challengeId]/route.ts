@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
-import db from "@/db/drizzle";
-
 import { eq } from "drizzle-orm";
-import { isAdmin } from "@/db/queries";
-import { challenges } from "@/db/schema";
+import db from "@/lib/db/drizzle";
+
+import { UserService } from "@/services/users";
+
+import { challenges } from "@/lib/db/schema";
 
 export const GET = async (req: Request, { params }: { params: Promise<{ challengeId: number }> }) => {
-    if (!isAdmin()) {
+    if (!UserService.isAdmin()) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
 
@@ -20,7 +21,7 @@ export const GET = async (req: Request, { params }: { params: Promise<{ challeng
 }
 
 export const PUT = async (req: Request, { params }: { params: Promise<{ challengeId: number }> }) => {
-    if (!isAdmin()) {
+    if (!UserService.isAdmin()) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
 
@@ -38,7 +39,7 @@ export const PUT = async (req: Request, { params }: { params: Promise<{ challeng
 }
 
 export const DELETE = async (req: Request, { params }: { params: Promise<{ challengeId: number }> }) => {
-    if (!isAdmin()) {
+    if (!UserService.isAdmin()) {
         return new NextResponse('Unauthorized', { status: 401 });
     }
 

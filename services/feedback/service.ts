@@ -1,5 +1,5 @@
-import db from "@/db/drizzle";
-import { feedback } from "@/db/schema";
+import db from "@/lib/db/drizzle";
+import { feedback } from "@/lib/db/schema";
 import { currentUser } from "@clerk/nextjs/server";
 
 export const leaveFeedback = async ({ message, type }: { message: string; type: string }) => {

@@ -1,23 +1,26 @@
 "use client";
 
 import Image from "next/image";
-import Confetti from "react-confetti";
-import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useMemo, useState, useTransition } from "react";
 import { useAudio, useWindowSize, useMount } from "react-use";
+import Confetti from "react-confetti";
 
-import { upsertChallengeProgress } from "@/actions/challenge-progress";
-import { challengeOptions, challenges } from "@/db/schema";
-import { reduceHearts } from "@/actions/user-progress";
+import { ChallengeService } from "@/services/challenges";
+import { UserService } from "@/services/users";
 
 import Header from "./header";
 import QuestionBubble from "./question-bubble";
 import Challenge from "./challenge";
 import Footer from "./footer";
 import ResultCard from "./result-crad";
-import { toast } from "sonner";
+
 import { useHeartsModal } from "@/store/use-hearts-modal";
 import { usePracticeModal } from "@/store/use-practice-modal";
+
+import { challengeOptions, challenges } from "@/lib/db/schema";
+import { toast } from "sonner";
+
 
 type Props = {
   initialLessonId: number;
@@ -117,7 +120,7 @@ export default function Quiz({
 
     if (correctOption && correctOption.id === selectedOption) {
       startTransition(() => {
-        upsertChallengeProgress(challenge.id)
+        ChallengeService.upsertChallengeProgress(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
               openHeartsModal();
@@ -136,7 +139,7 @@ export default function Quiz({
       });
     } else {
       startTransition(() => {
-        reduceHearts(challenge.id)
+        UserService.reduceHearts(challenge.id)
           .then((response) => {
             if (response?.error === "hearts") {
               openHeartsModal();

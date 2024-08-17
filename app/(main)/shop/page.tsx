@@ -1,15 +1,18 @@
-import FeedWrapper from "@/components/feed-wrapper";
-import StickyWrapper from "@/components/sticky-wrapper";
-import UserProgress from "@/components/user-progress";
-import { getUserProgress } from "@/db/queries";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+
 import Items from "./items";
 import Promo from "../learn/promo";
 import Quests from "../learn/quests";
 
+import { UserService } from "@/services/users";
+
+import StickyWrapper from "@/components/sticky-wrapper";
+import UserProgress from "@/components/user-progress";
+import FeedWrapper from "@/components/feed-wrapper";
+
 export default async function ShopPage() {
-  const userProgress = await getUserProgress();
+  const userProgress = await UserService.getUserProgress();
 
   if (!userProgress || !userProgress.activeCourse) {
     redirect("/courses");
@@ -23,7 +26,7 @@ export default async function ShopPage() {
           points={userProgress.points}
         />
         <Promo />
-        <Quests points={userProgress.points}/>
+        <Quests points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
         <div className="w-full flex flex-col items-center lg:pt-[62px]">
@@ -34,10 +37,7 @@ export default async function ShopPage() {
           <p className="text-muted-foreground text-center text-lg mb-6">
             Використайте бали щоб поновити спроби.
           </p>
-          <Items
-            hearts={userProgress.hearts}
-            points={userProgress.points}
-          />
+          <Items hearts={userProgress.hearts} points={userProgress.points} />
         </div>
       </FeedWrapper>
     </div>

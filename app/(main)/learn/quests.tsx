@@ -1,8 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { quests } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+
+import { quests } from "@/lib/constants";
 
 type Props = { points: number };
 
@@ -19,27 +21,22 @@ export default function Quests({ points }: Props) {
       </div>
       <ul className="w-full space-y-4">
         {quests.map((quest) => {
-            const progress = (points / quest.value) * 100;
+          const progress = (points / quest.value) * 100;
 
-            return (
-                <div
-                  className="flex items-center w-full p-4 gap-x-4 border-t-2"
-                  key={quest.title}
-                >
-                  <Image 
-                  src='/points.svg'
-                  alt="Points"
-                  width={40}
-                  height={40}
-                  />
-                  <div className="flex flex-col gap-y-2 w-full">
-                    <p className="text-neutral-700 text-xl font-bold">
-                      {quest.title}
-                    </p>
-                    <Progress value={progress} className="h-3"/>
-                  </div>
-                </div>
-              );
+          return (
+            <div
+              className="flex items-center w-full p-4 gap-x-4 border-t-2"
+              key={quest.title}
+            >
+              <Image src="/points.svg" alt="Points" width={40} height={40} />
+              <div className="flex flex-col gap-y-2 w-full">
+                <p className="text-neutral-700 text-xl font-bold">
+                  {quest.title}
+                </p>
+                <Progress value={progress} className="h-3" />
+              </div>
+            </div>
+          );
         })}
       </ul>
     </div>

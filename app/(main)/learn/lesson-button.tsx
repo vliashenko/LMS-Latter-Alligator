@@ -96,7 +96,7 @@ export default function LessonButton({
             </div>
           </div>
         ) : (
-            <Button
+          <Button
             size="rounded"
             variant={locked ? "locked" : "secondary"}
             className="h-[70px] w-[70px] border-b-8"

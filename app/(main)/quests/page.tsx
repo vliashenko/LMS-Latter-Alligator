@@ -1,15 +1,18 @@
-import FeedWrapper from "@/components/feed-wrapper";
-import StickyWrapper from "@/components/sticky-wrapper";
-import { Progress } from "@/components/ui/progress";
-import UserProgress from "@/components/user-progress";
-import { getUserProgress } from "@/db/queries";
-import { quests } from "@/lib/constants";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+
+import { UserService } from "@/services/users";
+
 import Promo from "../learn/promo";
 
+import FeedWrapper from "@/components/feed-wrapper";
+import StickyWrapper from "@/components/sticky-wrapper";
+import UserProgress from "@/components/user-progress";
+import { Progress } from "@/components/ui/progress";
+import { quests } from "@/lib/constants";
+
 export default async function QuestsPage() {
-  const userProgress = await getUserProgress();
+  const userProgress = await UserService.getUserProgress();
 
   if (!userProgress || !userProgress.activeCourse) {
     redirect("/courses");
@@ -42,17 +45,17 @@ export default async function QuestsPage() {
                   className="flex items-center w-full p-4 gap-x-4 border-t-2"
                   key={quest.title}
                 >
-                  <Image 
-                  src='/points.svg'
-                  alt="Points"
-                  width={60}
-                  height={60}
+                  <Image
+                    src="/points.svg"
+                    alt="Points"
+                    width={60}
+                    height={60}
                   />
                   <div className="flex flex-col gap-y-2 w-full">
                     <p className="text-neutral-700 text-xl font-bold">
                       {quest.title}
                     </p>
-                    <Progress value={progress} className="h-3"/>
+                    <Progress value={progress} className="h-3" />
                   </div>
                 </div>
               );

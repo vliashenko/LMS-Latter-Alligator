@@ -1,10 +1,13 @@
-import { getLesson, getUserProgress } from "@/db/queries";
 import { redirect } from "next/navigation";
+
 import Quiz from "./quiz";
 
+import { LessonService } from "@/services/lessons";
+import { UserService } from "@/services/users";
+
 export default async function LessonPage() {
-  const lesson = await getLesson();
-  const userProgress = await getUserProgress();
+  const lesson = await LessonService.getLesson();
+  const userProgress = await UserService.getUserProgress();
 
   if (!lesson || !userProgress) {
     redirect("/learn");

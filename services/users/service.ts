@@ -1,12 +1,32 @@
 'use server';
 
-import db from "@/db/drizzle";
-import { getCourseById, getUserProgress } from "@/db/queries";
-import { challengeProgress, challenges, userProgress } from "@/db/schema";
-import { auth, currentUser } from "@clerk/nextjs/server"
-import { and, eq } from "drizzle-orm";
+import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { auth, currentUser } from "@clerk/nextjs/server"
+import { and, eq } from "drizzle-orm";
+
+import { getCourseById } from "../courses/service";
+
+import db from "@/lib/db/drizzle";
+import { challengeProgress, challenges, userProgress } from "@/lib/db/schema";
+
+export const getUserProgress = cache(async () => {
+    const { userId } = await auth();
+
+    if (!userId) {
+        return null;
+    }
+
+    const data = await db.query.userProgress.findFirst({
+        where: eq(userProgress.userId, userId),
+        with: {
+            activeCourse: true,
+        },
+    })
+
+    return data;
+})
 
 export const upsertUserProgress = async (courseId: number) => {
     const { userId } = await auth();
@@ -128,4 +148,10 @@ export const refillHearts = async () => {
     revalidatePath('/learn');
     revalidatePath('/quests');
     revalidatePath('/leaderboard');
+}
+
+
+export const isAdmin = async () => {
+    const { sessionClaims } = await auth()
+    return sessionClaims?.metadata.role === 'admin'
 }

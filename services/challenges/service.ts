@@ -2,11 +2,12 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
-import db from "@/db/drizzle";
+import db from "@/lib/db/drizzle";
 
-import { getUserProgress } from "@/db/queries";
-import { challengeProgress, challenges, userProgress } from "@/db/schema";
+
+import { challengeProgress, challenges, userProgress } from "@/lib/db/schema";
 import { revalidatePath } from "next/cache";
+import { UserService } from "../users";
 
 export const upsertChallengeProgress = async (challengeId: number) => {
     const { userId } = await auth();
@@ -15,7 +16,7 @@ export const upsertChallengeProgress = async (challengeId: number) => {
         throw new Error('Unauthorized');
     }
 
-    const currentUserProgress = await getUserProgress();
+    const currentUserProgress = await UserService.getUserProgress();
 
     if (!currentUserProgress) {
         throw new Error('User progress not found');

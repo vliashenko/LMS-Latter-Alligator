@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import Image from "next/image";
 import { useAudio, useKey } from "react-use";
 import { cn } from "@/lib/utils";
-import { challenges } from "@/db/schema";
+import { challenges } from "@/lib/db/schema";
 
 type Props = {
   text: string;
@@ -28,14 +28,14 @@ export default function Card({
   type,
 }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [audio, _, controls] = useAudio({ src: audioSrc || '' })
+  const [audio, _, controls] = useAudio({ src: audioSrc || "" });
 
   const handleClick = useCallback(() => {
-    if(disabled || !audio) return;
+    if (disabled || !audio) return;
 
     controls.play();
     onClick();
-  },[disabled, audio, controls, onClick]);
+  }, [disabled, audio, controls, onClick]);
 
   useKey(shortcut, handleClick, {}, [handleClick]);
 
@@ -82,7 +82,9 @@ export default function Card({
           className={cn(
             "lg:w-[30px] lg:h-[30px] w-[20px] h-[20px] border-2 flex items-center justify-center rounded-lg text-neutral-400 lg:text-[15px] text-xs font-semibold",
             selected && "border-sky-300 text-sky-500",
-            selected && status === "correct" && "border-green-500 text-green-500",
+            selected &&
+              status === "correct" &&
+              "border-green-500 text-green-500",
             selected && status === "wrong" && "border-rose-500 text-rose-500"
           )}
         >

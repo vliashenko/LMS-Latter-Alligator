@@ -1,23 +1,24 @@
-import FeedWrapper from "@/components/feed-wrapper";
-import StickyWrapper from "@/components/sticky-wrapper";
-import Header from "./header";
-import UserProgress from "@/components/user-progress";
-import {
-  getCourseProgress,
-  getLessonPercentage,
-  getUnits,
-  getUserProgress,
-} from "@/db/queries";
 import { redirect } from "next/navigation";
+
+import { UserService } from "@/services/users";
+import { CourseService } from "@/services/courses";
+import { LessonService } from "@/services/lessons";
+import { UnitService } from "@/services/units";
+
+import Header from "./header";
 import Unit from "./unit";
 import Promo from "./promo";
 import Quests from "./quests";
 
+import FeedWrapper from "@/components/feed-wrapper";
+import StickyWrapper from "@/components/sticky-wrapper";
+import UserProgress from "@/components/user-progress";
+
 export default async function Learn() {
-  const userProgress = await getUserProgress();
-  const courseProgress = await getCourseProgress();
-  const lessonPercentage = await getLessonPercentage();
-  const units = await getUnits();
+  const userProgress = await UserService.getUserProgress();
+  const courseProgress = await CourseService.getCourseProgress();
+  const lessonPercentage = await LessonService.getLessonPercentage();
+  const units = await UnitService.getUnits();
 
   if (!userProgress || !userProgress.activeCourse || !courseProgress) {
     redirect("/courses");
@@ -32,7 +33,7 @@ export default async function Learn() {
           points={userProgress.points}
         />
         <Promo />
-        <Quests points={userProgress.points}/>
+        <Quests points={userProgress.points} />
       </StickyWrapper>
       <FeedWrapper>
         <Header title={userProgress.activeCourse.title} />

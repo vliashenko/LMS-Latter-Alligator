@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { useFeedbackModal } from "@/store/use-feedback-modal";
+import { Button } from "@/components/ui/button";
 
 export default function Promo() {
   const { open } = useFeedbackModal();
@@ -20,12 +20,7 @@ export default function Promo() {
           Залиште відгук або повідомте нам що щось не так.
         </p>
       </div>
-      <Button
-        variant="super"
-        className="w-full"
-        size="lg"
-        onClick={open}
-      >
+      <Button variant="super" className="w-full" size="lg" onClick={open}>
         Залишити відгук
       </Button>
     </div>

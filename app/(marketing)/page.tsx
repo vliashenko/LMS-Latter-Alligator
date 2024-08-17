@@ -26,28 +26,30 @@ export default function Home() {
           <h1 className="text-4xl drop-shadow-xs lg:text-3xl font-bold text-white max-w-[680px] text-center">
             Вивчай, практикуй, та вдосконалюй англійську з Later, Alligator!
           </h1>
-        <ClerkLoading>
-          <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
-        </ClerkLoading>
-        <ClerkLoaded>
-          <SignedOut>
-            <SignInButton mode="modal">
-              <Button size="lg" variant="secondaryOutline" className="w-full">
-                Розпочати
+          <ClerkLoading>
+            <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+          </ClerkLoading>
+          <ClerkLoaded>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <Button size="lg" variant="secondaryOutline" className="w-full">
+                  Розпочати
+                </Button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <Button
+                size="lg"
+                variant="secondaryOutline"
+                asChild
+                className="w-full"
+              >
+                <Link href="/learn">Продовжити навчання</Link>
               </Button>
-            </SignInButton>
-          </SignedOut>
-          <SignedIn>
-            <Button size='lg' variant='secondaryOutline' asChild className="w-full">
-              <Link href='/learn'>
-                Продовжити навчання
-              </Link>
-            </Button>
-          </SignedIn>
-        </ClerkLoaded>
+            </SignedIn>
+          </ClerkLoaded>
         </div>
       </div>
-        
     </div>
   );
 }

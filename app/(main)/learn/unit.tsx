@@ -1,6 +1,7 @@
-import { lessons, units } from "@/db/schema";
 import UnitBanner from "./unit-banner";
 import LessonButton from "./lesson-button";
+
+import { lessons, units } from "@/lib/db/schema";
 
 type Props = {
   description: string;

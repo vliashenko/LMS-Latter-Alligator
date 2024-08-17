@@ -1,6 +1,7 @@
-import { challengeOptions, challenges } from "@/db/schema";
-import { cn } from "@/lib/utils";
 import Card from "./card";
+
+import { cn } from "@/lib/utils";
+import { challengeOptions, challenges } from "@/lib/db/schema";
 
 type Props = {
   options: (typeof challengeOptions.$inferSelect)[];
@@ -24,7 +25,7 @@ export default function Challenge({
       className={cn(
         "grid gap-3",
         type === "ASSIST" && "grid-cols-1",
-        type === "SELECT" && "grid-cols-2" //lg:grid-cols-[repeat(auto-fit,minmax(0,1fr))]
+        type === "SELECT" && "grid-cols-2"
       )}
     >
       {options.map((option, idx) => (

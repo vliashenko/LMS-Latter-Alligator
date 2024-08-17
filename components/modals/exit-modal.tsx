@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useExitModal } from "@/store/use-exit-modal";
 
-export default function HeartsModal() {
+export default function ExitModal() {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
   const { isOpen, close } = useExitModal();

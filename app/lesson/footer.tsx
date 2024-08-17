@@ -33,7 +33,10 @@ export const getRandomPhrase = (phrases: string[]): string => {
 
 export default function Footer({ onCheck, status, disabled, lessonId }: Props) {
   useKey("Enter", onCheck, {}, [onCheck]);
-  const completedRandomPhrase = useMemo(() => getRandomPhrase(completedPhrases), []);
+  const completedRandomPhrase = useMemo(
+    () => getRandomPhrase(completedPhrases),
+    []
+  );
   const wrongRandomPhrase = useMemo(() => getRandomPhrase(wrongPhrases), []);
   const isMobile = useMedia("(max-width: 1024px");
 

@@ -1,10 +1,10 @@
 "use client";
 
-import { courses, userProgress } from "@/db/schema";
+import { courses, userProgress } from "@/lib/db/schema";
 import Card from "./card";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { upsertUserProgress } from "@/actions/user-progress";
+import { UserService } from "@/services/users";
 
 type Props = {
   courses: (typeof courses.$inferSelect)[];
@@ -25,7 +25,7 @@ export default function List({ courses, activeCourseId }: Props) {
     }
 
     startTransition(() => {
-      upsertUserProgress(id);
+      UserService.upsertUserProgress(id);
     });
   };
 

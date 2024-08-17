@@ -1,9 +1,10 @@
 "use client";
-
-import { refillHearts } from "@/actions/user-progress";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { useTransition } from "react";
+import Image from "next/image";
+
+import { UserService } from "@/services/users";
+
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 type Props = {
@@ -22,7 +23,7 @@ export default function Items({
     }
 
     startTransition(() => {
-        refillHearts().catch(() => toast.error('Щось пішло не так'))
+        UserService.refillHearts().catch(() => toast.error('Щось пішло не так'))
     })
   };
   return (
