@@ -35,7 +35,7 @@ export default function FeedbackModal() {
     { label: "Загальне", onClick: () => setType("general") },
     { label: "Ідея", onClick: () => setType("idea") },
     { label: "Баг", onClick: () => setType("bug") },
-  ]; 
+  ];
 
   return (
     <Dialog open={isOpen} onOpenChange={close}>

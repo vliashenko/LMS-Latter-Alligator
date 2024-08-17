@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { courses } from "@/db/schema";
+import { courses } from "@/lib/db/schema";
 
 type Props = {
   activeCourse: typeof courses.$inferSelect;

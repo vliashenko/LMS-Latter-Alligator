@@ -25,8 +25,8 @@ export default function HeartsModal() {
 
   const onClick = () => {
     close();
-    router.push('/shop')
-  }
+    router.push("/shop");
+  };
 
   if (!isClient) {
     return null;
@@ -42,7 +42,8 @@ export default function HeartsModal() {
             У тебе закінчились спроби!
           </DialogTitle>
           <DialogDescription className="text-center text-base">
-            Отримай Pro версію для безлімітних спроб, або придбай їх у нашому магазині.
+            Отримай Pro версію для безлімітних спроб, або придбай їх у нашому
+            магазині.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="mb-4">

@@ -1,10 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ClerkLoading,
-  ClerkLoaded,
-  UserButton,
-} from '@clerk/nextjs';
+import { ClerkLoading, ClerkLoaded, UserButton } from "@clerk/nextjs";
 
 import SidebarItem from "./sidebar-item";
 
@@ -66,10 +62,10 @@ export default function Sidebar({ className }: Props) {
       </div>
       <div className="p-4">
         <ClerkLoading>
-          <Loader className="h-5 w-5 text-muted-foreground animate-spin"/>
+          <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
         </ClerkLoading>
         <ClerkLoaded>
-          <UserButton afterSignOutUrl="/"/>
+          <UserButton afterSignOutUrl="/" />
         </ClerkLoaded>
       </div>
     </div>

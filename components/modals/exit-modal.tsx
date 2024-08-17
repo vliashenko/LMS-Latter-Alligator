@@ -56,7 +56,7 @@ export default function ExitModal() {
               size="lg"
               onClick={() => {
                 close();
-                router.push('/learn')
+                router.push("/learn");
               }}
             >
               Завершити сессію
