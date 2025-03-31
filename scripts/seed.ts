@@ -93,41 +93,109 @@ const main = async () => {
                 order: 1,
                 question: 'Назва якої тварини починається на останню літеру англійської абетки?'
             },
+            {
+                id: 2,
+                lessonId: 1,
+                type: 'ASSIST',
+                order: 2,
+                question: 'Як англійською сказати "ведмідь"?'
+            },
+            {
+                id: 3,
+                lessonId: 1,
+                type: 'SELECT',
+                order: 3,
+                question: 'Хто з тварин є ведмедем?'
+            },
         ])
 
         await db.insert(schema.challengeOptions).values([
             {
-               id: 1,
-               challengeId: 1,
-               imageSrc: '/zebra.png',
-               correctOption: true,
-               text: 'Zebra',
-               audioSrc: '/zebra.mp3',
+                challengeId: 1,
+                imageSrc: '/zebra.png',
+                correctOption: true,
+                text: 'Zebra',
+                audioSrc: '/zebra.mp3',
             },
             {
-                id: 2,
                 challengeId: 1,
                 imageSrc: '/bear.png',
                 correctOption: false,
                 text: 'Bear',
                 audioSrc: '/bear.mp3',
-             },
-             {
-                id: 3,
+            },
+            {
                 challengeId: 1,
                 imageSrc: '/dog.png',
                 correctOption: false,
                 text: 'Dog',
                 audioSrc: '/dog.mp3',
-             },
-             {
-                id: 4,
+            },
+            {
                 challengeId: 1,
                 imageSrc: '/crocodile.png',
                 correctOption: false,
                 text: 'Crocodile',
                 audioSrc: '/crocodile.mp3',
-             },
+            },
+        ])
+
+        await db.insert(schema.challengeOptions).values([
+            {
+                challengeId: 2,
+                correctOption: false,
+                text: 'Zebra',
+                audioSrc: '/zebra.mp3',
+            },
+            {
+                challengeId: 2,
+                correctOption: true,
+                text: 'Bear',
+                audioSrc: '/bear.mp3',
+            },
+            {
+                challengeId: 2,
+                correctOption: false,
+                text: 'Dog',
+                audioSrc: '/dog.mp3',
+            },
+            {
+                challengeId: 2,
+                correctOption: false,
+                text: 'Crocodile',
+                audioSrc: '/crocodile.mp3',
+            },
+        ])
+
+        await db.insert(schema.challengeOptions).values([
+            {
+                challengeId: 3,
+                imageSrc: '/crocodile.png',
+                correctOption: false,
+                text: 'Crocodile',
+                audioSrc: '/crocodile.mp3',
+            },
+            {
+                challengeId: 3,
+                imageSrc: '/zebra.png',
+                correctOption: false,
+                text: 'Zebra',
+                audioSrc: '/zebra.mp3',
+            },
+            {
+                challengeId: 3,
+                imageSrc: '/dog.png',
+                correctOption: false,
+                text: 'Dog',
+                audioSrc: '/dog.mp3',
+            },
+            {
+                challengeId: 3,
+                imageSrc: '/bear.png',
+                correctOption: true,
+                text: 'Bear',
+                audioSrc: '/bear.mp3',
+            },
         ])
 
         console.log('Seeding is finished');
